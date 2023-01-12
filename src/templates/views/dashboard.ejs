@@ -1,0 +1,38 @@
+<%- include('../partials/header.ejs') %>
+
+<main class="container">
+    <h1 class="my-4">Quizly - Dashboard</h1>
+    <div class="d-flex justify-content-between align-items-center mt-5 mb-3">
+        <h2 class="my-2">Your Quizzes</h2>
+        <a href="/quiz/create" class="btn btn-primary">Create Quiz +</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Submissions</th>
+                <th scope="col">Avg. Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const quiz of user.quizzes) { %>
+                <tr>
+                    <td>
+                        <a href="/quiz/<%= quiz.slug %>"><strong><%= quiz.title %></strong></a>
+                        <br>
+                        <small><%= quiz.description %></small>
+                    </td>
+                    <td>
+                        <%= quiz.submissions.length %>
+                    </td>
+                    <td>
+                        <% if (quiz.avgScore) { %>
+                            <%= quiz.avgScore?.toFixed(2) %>%
+                        <% } %>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</main>
+<%- include('../partials/footer.ejs') %>
